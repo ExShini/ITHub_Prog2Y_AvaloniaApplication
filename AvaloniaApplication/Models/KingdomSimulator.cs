@@ -106,6 +106,13 @@ class KingdomSimulator
 
 
 
+    public void BuyCitizens(CitezensTypes type, int numToBuy)
+    {
+        // ЛОГИКА ПОКУПКИ !!!
+    }
+
+
+
     private static void HandleMenu(
         ref KingdomStorage storage,
         ref CitizensHome home)

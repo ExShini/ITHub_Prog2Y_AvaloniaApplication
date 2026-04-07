@@ -189,7 +189,9 @@
 
 			<Button Grid.Column="0" Grid.Row="0"
 					HorizontalAlignment="Center"
-					Margin="5">
+					Margin="5"
+					Command="{Binding BuyCitizensCommand}"
+					>
 				Buy
 			</Button>
 		</StackPanel>

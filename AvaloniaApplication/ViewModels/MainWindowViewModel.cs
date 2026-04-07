@@ -9,7 +9,7 @@ namespace AvaloniaApplication.ViewModels
     public partial class MainWindowViewModel : ViewModelBase
     {
 
-        KingdomSimulator simulator;
+        KingdomSimulator _simulator;
 
         [ObservableProperty]
         public int _food;
@@ -45,21 +45,21 @@ namespace AvaloniaApplication.ViewModels
 
         public MainWindowViewModel() : base() 
         {
-            simulator = new KingdomSimulator();
-            simulator.Initialize();
+            _simulator = new KingdomSimulator();
+            _simulator.Initialize();
 
             SyncData();
         }
 
         private void SyncData()
         {
-            var storage = simulator.storage;
+            var storage = _simulator.storage;
 
             Food = storage.Food;
             Gold = storage.Gold;
             Goods = storage.Goods;
 
-            var home = simulator.home;
+            var home = _simulator.home;
 
             Villagers = home.Villagers.Count;
             Craftmen = home.Craftmen.Count;
@@ -70,7 +70,7 @@ namespace AvaloniaApplication.ViewModels
         [RelayCommand]
         public void RunNextDay()
         {
-            simulator.RunSimulation();
+            _simulator.RunSimulation();
             SyncData();
         }
 
@@ -91,7 +91,7 @@ namespace AvaloniaApplication.ViewModels
             if(choosedCitWas == _choosedCitType)
                 return;
 
-            int canBuyNum = simulator.GetCitizensMaxNumToBuy(_choosedCitType);
+            int canBuyNum = _simulator.GetCitizensMaxNumToBuy(_choosedCitType);
             MaxCitizensToBuyNum = canBuyNum;
 
             int citizenToBuyNum = canBuyNum / 2;
@@ -126,7 +126,7 @@ namespace AvaloniaApplication.ViewModels
                 return;
             }
 
-            int maxNumToBuy = simulator.GetCitizensMaxNumToBuy(_choosedCitType);
+            int maxNumToBuy = _simulator.GetCitizensMaxNumToBuy(_choosedCitType);
             int clampedResult = Math.Clamp(parseResult, 0, maxNumToBuy);
 
             if(clampedResult != parseResult)
@@ -139,6 +139,19 @@ namespace AvaloniaApplication.ViewModels
 
             CitizensToBuyNum = clampedResult;
             _currentCitizensToBuy = clampedResult;
+        }
+
+        [RelayCommand]
+        public void OnBuyCitizens()
+        {
+            if(_currentCitizensToBuy <= 0)
+                return;
+
+            if(_choosedCitType == CitezensTypes.None)
+                return;
+
+            _simulator.BuyCitizens(_choosedCitType, _currentCitizensToBuy);
+            SyncData();
         }
 
     }
