@@ -1,0 +1,215 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:vm="using:AvaloniaApplication.ViewModels"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="700"
+		x:Class="AvaloniaApplication.Views.MainWindow"
+		x:DataType="vm:MainWindowViewModel"
+		Icon="/Assets/avalonia-logo.ico"
+		Title="AvaloniaApplication"
+		Width="400"
+		Height="700">
+
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+		to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
+	<StackPanel VerticalAlignment="Center">
+
+		<Border Margin="5" CornerRadius="10" Background="LightBlue">
+			<TextBlock Margin="5"
+					   FontSize="24"
+					   HorizontalAlignment="Center"
+					   Text="My Kingdom Simulator">
+			</TextBlock>
+		</Border>
+
+
+		<Border Margin="5" CornerRadius="10" Background="LightSeaGreen">
+			<StackPanel VerticalAlignment="Center">
+				<TextBlock Margin="10"
+						   HorizontalAlignment="Center">
+					Citizens
+				</TextBlock>
+
+				<Grid ShowGridLines="True" Margin="5"
+					  ColumnDefinitions="120, 60"
+					  RowDefinitions="Auto, Auto, Auto"
+					  HorizontalAlignment="Center">
+
+
+					<TextBlock Grid.Row="0" Grid.Column="0"
+							   Margin="10"
+							   HorizontalAlignment="Center">
+						Farmers
+					</TextBlock>
+
+					<TextBlock Grid.Row="0" Grid.Column="1"
+							   Margin="10"
+							   HorizontalAlignment="Left">
+						5
+					</TextBlock>
+
+
+					<TextBlock Grid.Row="1" Grid.Column="0"
+							   Margin="10"
+							   HorizontalAlignment="Center">
+						Craftmans
+					</TextBlock>
+
+
+					<TextBlock Grid.Row="1" Grid.Column="1"
+							   Margin="10"
+							   HorizontalAlignment="Left">
+						10
+					</TextBlock>
+
+
+					<TextBlock Grid.Row="2" Grid.Column="0"
+							   Margin="10"
+							   HorizontalAlignment="Center">
+						Merchants
+					</TextBlock>
+
+					<TextBlock Grid.Row="2" Grid.Column="1"
+							   Margin="10"
+							   HorizontalAlignment="Left">
+						8
+					</TextBlock>
+
+				</Grid>
+			</StackPanel>
+		</Border>
+
+
+		<Border Margin="5" CornerRadius="10" Background="LightCoral">
+			<StackPanel VerticalAlignment="Center">
+				<TextBlock Margin="10"
+						   HorizontalAlignment="Center">
+					Storage
+				</TextBlock>
+
+				<Grid ShowGridLines="True" Margin="5"
+					  ColumnDefinitions="120, 60"
+					  RowDefinitions="Auto, Auto, Auto"
+					  HorizontalAlignment="Center">
+					<TextBlock Grid.Row="0" Grid.Column="0"
+							   Margin="10"
+							   HorizontalAlignment="Center">
+						Food
+					</TextBlock>
+
+					<TextBlock Grid.Row="0" Grid.Column="1"
+							   Margin="10"
+							   HorizontalAlignment="Left"
+							   Text="{Binding Food}">
+						5
+					</TextBlock>
+
+
+					<TextBlock Grid.Row="1" Grid.Column="0"
+							   Margin="10"
+							   HorizontalAlignment="Center">
+						Gold
+					</TextBlock>
+
+
+					<TextBlock Grid.Row="1" Grid.Column="1"
+							   Margin="10"
+							   HorizontalAlignment="Left"
+							   Text="{Binding Gold}">
+						10
+					</TextBlock>
+
+
+					<TextBlock Grid.Row="2" Grid.Column="0"
+							   Margin="10"
+							   HorizontalAlignment="Center">
+						Goods
+					</TextBlock>
+
+					<TextBlock Grid.Row="2" Grid.Column="1"
+							   Margin="10"
+							   HorizontalAlignment="Left"
+							   Text="{Binding Goods}">
+						8
+					</TextBlock>
+				</Grid>
+			</StackPanel>
+		</Border>
+
+
+		<StackPanel Orientation="Horizontal"
+					HorizontalAlignment="Center">
+
+			<StackPanel>
+				<RadioButton GroupName="Citezens Group"
+							 Content="Farmers"
+							 Command="{Binding SwitchRadioButtonsCommand}"
+							 CommandParameter="Villager"
+							 />
+				
+				<RadioButton GroupName="Citezens Group"
+							 Content="Craftmans"
+							 Command="{Binding SwitchRadioButtonsCommand}"
+							 CommandParameter="Craftman"
+							 />
+
+				<RadioButton GroupName="Citezens Group"
+							 Content="Merchants"
+							 Command="{Binding SwitchRadioButtonsCommand}"
+							 CommandParameter="Merchant"
+							 />
+			</StackPanel>
+
+
+
+			<Slider Orientation="Horizontal"
+					VerticalAlignment="Center"
+					Margin="10"
+					Width="100" 
+					Minimum="0"
+					TickFrequency ="1"
+					Maximum="{Binding MaxCitizensToBuyNum}" 
+					Value="{Binding CitizensToBuyNum}"
+					ValueChanged="OnSliderValueChanged"
+					/>
+
+
+			<TextBox AcceptsReturn = "False"
+					 MaxLength ="4"
+					 Height="40"
+					 Text="{Binding ToBuyNumInput}"
+					 TextChanged="OnTextBoxValueChanged"
+					 >
+			</TextBox>
+
+			<Button Grid.Column="0" Grid.Row="0"
+					HorizontalAlignment="Center"
+					Margin="5">
+				Buy
+			</Button>
+		</StackPanel>
+
+
+
+
+		<Button HorizontalAlignment="Center"
+				Command="{Binding RunNextDayCommand}">
+			Run Next Day
+		</Button>
+
+
+
+
+
+
+
+
+	</StackPanel>
+
+
+</Window>
